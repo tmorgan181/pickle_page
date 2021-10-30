@@ -26,18 +26,10 @@ body {
 
     <img id="play_link" src="..\static\play_button.png" onclick="setInterval(play_button, 2000)">
 
-    <audio id="pickle_audio_1" src="..\static\pickle_audio\trenton_pickle_1.mp3">
-    </audio>
-    
-    <audio id="pickle_audio_2" src="..\static\pickle_audio\trenton_pickle_2.mp3">
-    </audio>
-
     {% block javascript %}
         <script type="text/javascript">
             function play_button() {
-                console.log({{ sound_files|safe }});
                 var sound_files = {{ sound_files|safe }};
-                console.log(sound_files);
 
                 n = Math.floor(Math.random() * sound_files.length);
 
@@ -45,10 +37,7 @@ body {
                 audio_element.setAttribute("id", "pickle_audio")
                 audio_element.setAttribute("src", sound_files[n])
                 document.body.appendChild(audio_element)
-                console.log(audio_element)
 
-                // var audio = document.getElementById("pickle_audio");
-                // console.log(audio)
                 audio_element.play();
             }
         </script>
