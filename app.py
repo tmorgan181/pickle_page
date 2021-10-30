@@ -13,4 +13,4 @@ def index() -> None:
     for filename in os.listdir(images_dir):
         pickle_files.append(os.path.join(images_dir, filename))
 
-    return render_template('index.html', title=title, pickles=pickle_files, len=len(pickle_files))
+    return render_template('index.html', title=title, pickles=pickle_files)
