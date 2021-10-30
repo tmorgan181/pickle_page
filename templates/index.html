@@ -30,27 +30,57 @@ body {
         <script type="text/javascript">
 
             window.onload = function start() {
-                display();
+                var img_id_list = {{ pickles | tojson }};
+                for (i = 0; i < img_id_list.length; i++)
+                {
+                    var image = document.getElementById(img_id_list[i]);
+                    image.style.position = 'relative';
+
+                    // Randomize positions?
+                    image.style.left = Math.floor(Math.random() * window.innerWidth) + "px";
+                    image.style.top = Math.floor(Math.random() * window.innerHeight) + "px";
+                }
+
+                var velocityArray = [];
+                for (i = 0; i < img_id_list.length; i++)
+                {
+                    vel_x = Math.floor(Math.random() * 3) - 6;
+                    vel_y = Math.floor(Math.random() * 3) - 6;
+                    velocityArray.push([vel_x, vel_y]);
+                }
+
+                display(velocityArray);
             }
 
-            function display() {
+            function display(velocityArray) {
                 var img_id_list = {{ pickles | tojson }};
                 window.setInterval(function() {
                     for (i = 0; i < img_id_list.length; i++)
                     {
                         var image = document.getElementById(img_id_list[i]);
-                        console.log(image);
-                        var x = image.style.left;
-                        var y = image.style.top;
-                        //console.log( "left: " + x + " top: " + y)
+                        var h = window.innerHeight;
+                        var w = window.innerWidth;
+                        console.log(parseInt(image.style.left), w);
 
-                        document.getElementById(img_id_list[i]).style.left=(x+10) + "px"; //horizontal move
-                        document.getElementById(img_id_list[i]).style.top=(y+10) + "px"; // vertical movment
-                        
+                        image.style.left = parseInt(image.style.left) + velocityArray[i][0] + 'px';
+                        image.style.top = parseInt(image.style.top) + velocityArray[i][1] + 'px';
+
                         // wrap x and y if they go outside the screen bounds
-                        //if ()
+                        if (parseInt(image.style.left) > w) {
+                            velocityArray[i][0] *= -1;
+                        }
+                        else if (parseInt(image.style.left) < 0) {
+                            velocityArray[i][0] *= -1;
+                        }
+
+                        if (parseInt(image.style.top) > h) {
+                            velocityArray[i][1] *= -1;
+                        }
+                        else if (parseInt(image.style.top) < 0) {
+                            velocityArray[i][1] *= -1;
+                        }
                     }
-                }, 1000); // Repeat every 1 second
+                }, 10); // Repeat every 1 second
             }
 
             function play_button() {
