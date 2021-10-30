@@ -17,17 +17,42 @@ body {
 
 <body>
 
-    <u1>
         {% for img in pickles %}
-            <img src="{{ img }}">
+        <div>
+            <img src="{{ img }}" id="{{ img }}">
+        </div>
         {% endfor %}
-    </u1>
 
 
     <img id="play_link" src="..\static\play_button.png" onclick="setInterval(play_button, 2000)">
 
     {% block javascript %}
         <script type="text/javascript">
+
+            window.onload = function start() {
+                display();
+            }
+
+            function display() {
+                var img_id_list = {{ pickles | tojson }};
+                window.setInterval(function() {
+                    for (i = 0; i < img_id_list.length; i++)
+                    {
+                        var image = document.getElementById(img_id_list[i]);
+                        console.log(image);
+                        var x = image.style.left;
+                        var y = image.style.top;
+                        //console.log( "left: " + x + " top: " + y)
+
+                        document.getElementById(img_id_list[i]).style.left=(x+10) + "px"; //horizontal move
+                        document.getElementById(img_id_list[i]).style.top=(y+10) + "px"; // vertical movment
+                        
+                        // wrap x and y if they go outside the screen bounds
+                        //if ()
+                    }
+                }, 1000); // Repeat every 1 second
+            }
+
             function play_button() {
                 var sound_files = {{ sound_files|safe }};
 
