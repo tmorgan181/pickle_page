@@ -19,21 +19,30 @@
 
     <img id="play_link" src="..\static\play_button.png" onclick="setInterval(play_button, 2000)">
 
-    {% block javascript %}
-        <audio id="pickle_audio_1" src="..\static\pickle_audio\trenton_pickle_1.mp3">
-        </audio>
-        
-        <audio id="pickle_audio_2" src="..\static\pickle_audio\trenton_pickle_2.mp3">
-        </audio>
+    <audio id="pickle_audio_1" src="..\static\pickle_audio\trenton_pickle_1.mp3">
+    </audio>
+    
+    <audio id="pickle_audio_2" src="..\static\pickle_audio\trenton_pickle_2.mp3">
+    </audio>
 
+    {% block javascript %}
         <script type="text/javascript">
             function play_button() {
-                var audio
-                n = Math.floor(Math.random() * 2 + 1)
+                console.log({{ sound_files|safe }});
+                var sound_files = {{ sound_files|safe }};
+                console.log(sound_files);
 
-                audio_source = "pickle_audio_".concat(n)
-                audio = document.getElementById(audio_source);
-                audio.play();
+                n = Math.floor(Math.random() * sound_files.length);
+
+                var audio_element = document.createElement("audio")
+                audio_element.setAttribute("id", "pickle_audio")
+                audio_element.setAttribute("src", sound_files[n])
+                document.body.appendChild(audio_element)
+                console.log(audio_element)
+
+                // var audio = document.getElementById("pickle_audio");
+                // console.log(audio)
+                audio_element.play();
             }
         </script>
     {% endblock %}
