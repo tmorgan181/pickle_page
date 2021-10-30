@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <title>{{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
+
 <body>
+
     <u1>
         {% for img in pickles %}
             <img src="{{ img }}">
         {% endfor %}
     </u1>
+
+    <audio id="pickle_audio" src="..\static\pickle_audio\trenton_pickle_1.mp3">
+    </audio>
+
+    <img id="play_link" src="..\static\play_button.png" onclick="setInterval(play_button, 2000)">
+
+    {% block javascript %}
+        <script type="text/javascript">
+            function play_button() {
+                var audio = document.getElementById("pickle_audio");
+                audio.play();
+            }
+        </script>
+    {% endblock %}
+
+
+    <p id="created_by" style="position: absolute; bottom: 0; right: 0; margin: 16px; font-size: 16px;">
+        Created by Trenton Morgan, Nick Buerk 2021
+    </p>
+
 </body>
 </html>
