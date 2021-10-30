@@ -16,15 +16,23 @@
         {% endfor %}
     </u1>
 
-    <audio id="pickle_audio" src="..\static\pickle_audio\trenton_pickle_1.mp3">
-    </audio>
 
     <img id="play_link" src="..\static\play_button.png" onclick="setInterval(play_button, 2000)">
 
     {% block javascript %}
+        <audio id="pickle_audio_1" src="..\static\pickle_audio\trenton_pickle_1.mp3">
+        </audio>
+        
+        <audio id="pickle_audio_2" src="..\static\pickle_audio\trenton_pickle_2.mp3">
+        </audio>
+
         <script type="text/javascript">
             function play_button() {
-                var audio = document.getElementById("pickle_audio");
+                var audio
+                n = Math.floor(Math.random() * 2 + 1)
+
+                audio_source = "pickle_audio_".concat(n)
+                audio = document.getElementById(audio_source);
                 audio.play();
             }
         </script>
