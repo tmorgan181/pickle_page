@@ -17,14 +17,13 @@ body {
 
 <body id="body">
 
+    <img id="play_link" src="..\static\play_button.png" onclick="setInterval(play_button, 4000)" width="300" height="300">
+
         {% for img in pickles %}
         <div>
             <img src="{{ img }}" id="{{ img }}">
         </div>
         {% endfor %}
-
-
-    <img id="play_link" src="..\static\play_button.png" onclick="setInterval(play_button, 4000)" width="300" height="300">
 
     {% block javascript %}
         <script type="text/javascript">
@@ -46,8 +45,8 @@ body {
                 var velocityArray = [];
                 for (i = 0; i < img_id_list.length; i++)
                 {
-                    vel_x = Math.floor(Math.random() * 3) - 6;
-                    vel_y = Math.floor(Math.random() * 3) - 6;
+                    vel_x = Math.floor(Math.random() * 1) - 3;
+                    vel_y = Math.floor(Math.random() * 1) - 3;
                     velocityArray.push([vel_x, vel_y]);
                 }
 
@@ -80,7 +79,7 @@ body {
                             velocityArray[i][1] *= -1;
                         }
                     }
-                }, 10); // Repeat every 1 second
+                }, 1); // Repeat
             }
 
             function play_button() {
