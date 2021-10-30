@@ -19,6 +19,5 @@ def index() -> None:
     sound_files=[]
     for filename in os.listdir(sounds_dir):
         sound_files.append(os.path.join("..", sounds_dir, filename))
-    print(sound_files)
 
     return render_template('index.html', title=title, pickles=pickle_files, sound_files=json.dumps(sound_files))
